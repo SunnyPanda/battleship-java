@@ -30,13 +30,21 @@ public class Field {
         int[] convertedCoordinates = new int[4];
         int[] start = convertCoordinate(coordinates[0]);
         int[] end = convertCoordinate(coordinates[1]);
-        convertedCoordinates[0] = start[0];
-        convertedCoordinates[1] = start[1];
-        convertedCoordinates[2] = end[0];
-        convertedCoordinates[3] = end[1];
+        convertedCoordinates[0] = Math.min(start[0], end[0]);
+        convertedCoordinates[1] = Math.min(start[1], end[1]);
+        convertedCoordinates[2] = Math.max(start[0], end[0]);
+        convertedCoordinates[3] = Math.max(start[1], end[1]);
 
         return convertedCoordinates;
     }
+
+    private int[] convertCoordinate(String coordinate) {
+        int[] cell = new int[2];
+        cell[0] = convertRow(coordinate.substring(0, 1));
+        cell[1] = convertColumn(coordinate.substring(1));
+        return cell;
+    }
+
 
     public void placeShip(int[] coordinates) {
         int startRow = coordinates[0];
@@ -46,11 +54,16 @@ public class Field {
         fillCells(startRow, startCol, endRow, endCol);
     }
 
-    private int[] convertCoordinate(String coordinate) {
-        int[] cell = new int[2];
-        cell[0] = convertRow(coordinate.substring(0, 1));
-        cell[1] = convertColumn(coordinate.substring(1));
-        return cell;
+    private void fillCells(int startRow, int startCol, int endRow, int endCol) {
+        if (startRow == endRow) {
+            for (int col = startCol; col <= endCol; col++) {
+                field[startRow][col] = 'O';
+            }
+        } else {
+            for (int row = startRow; row <= endRow; row++) {
+                field[row][startCol] = 'O';
+            }
+        }
     }
 
     private int convertRow(String row) {
@@ -61,10 +74,6 @@ public class Field {
     private int convertColumn(String col) {
         return Integer.parseInt(col);
     }
-
-//    private void validateCoordinates(int startRow, int startCol, int endRow, int endCol) {
-//
-//    }
 
     public void validateCoordinates(int[] coordinates, Ships ship) throws Exception {
         int startRow = coordinates[0];
@@ -94,11 +103,6 @@ public class Field {
 
     private boolean checkCells(int startRow, int startCol, int endRow, int endCol) {
         if (startRow == endRow) {   // if horizontal
-            if (startCol > endCol) {
-                int temp = startCol;
-                startCol = endCol;
-                endCol = temp;
-            }
             for (int col = startCol; col <= endCol; col++) {    // check all cell in the ship
                 if (field[startRow][col] == 'O') {  // if cell is occupied
                     return true;
@@ -121,11 +125,6 @@ public class Field {
                 }
             }
         } else {    // if vertical
-            if (startRow > endRow) {
-                int temp = startRow;
-                startRow = endRow;
-                endRow = temp;
-            }
             for (int row = startRow; row <= endRow; row++) {
                 if (field[row][startCol] == 'O') {
                     return true;
@@ -150,30 +149,6 @@ public class Field {
         }
 
         return false;
-    }
-
-    private void fillCells(int startRow, int startCol, int endRow, int endCol) {
-        if (startRow == endRow) {
-            if (startCol < endCol) {
-                for (int col = startCol; col <= endCol; col++) {
-                    field[startRow][col] = 'O';
-                }
-            } else {
-                for (int col = startCol; col >= endCol; col--) {
-                    field[startRow][col] = 'O';
-                }
-            }
-        } else {
-            if (startRow < endRow) {
-                for (int row = startRow; row <= endRow; row++) {
-                    field[row][startCol] = 'O';
-                }
-            } else {
-                for (int row = startRow; row >= endRow; row--) {
-                    field[row][startCol] = 'O';
-                }
-            }
-        }
     }
 }
 

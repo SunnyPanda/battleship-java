@@ -1,6 +1,9 @@
 package battleship;
 
 public class Field {
+    private static final char EMPTY = '~';
+    private static final char SHIP = 'O';
+
     private final char[][] field;
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
@@ -9,7 +12,7 @@ public class Field {
         field = new char[10][11];
         for (int i = 0, k = 65; i < field.length; i++, k++) {
             for (int j = 0; j < field[i].length; j++) {
-                field[i][j] = j == 0 ? (char) k : '~';
+                field[i][j] = j == 0 ? (char) k : EMPTY;
             }
         }
     }
@@ -47,11 +50,11 @@ public class Field {
     private void fillCells(int startRow, int startCol, int endRow, int endCol) {
         if (startRow == endRow) {
             for (int col = startCol; col <= endCol; col++) {
-                field[startRow][col] = 'O';
+                field[startRow][col] = SHIP;
             }
         } else {
             for (int row = startRow; row <= endRow; row++) {
-                field[row][startCol] = 'O';
+                field[row][startCol] = SHIP;
             }
         }
     }

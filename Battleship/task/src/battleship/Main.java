@@ -12,7 +12,9 @@ public class Main {
         for (Ships ship : Ships.values()) {
             System.out.printf("Enter the coordinates of the %s (%d cells): \n", ship.name, ship.size);
             String[] coordinates = in.nextLine().split(" ");
-            field.placeShip(coordinates, ship);
+            int[] convertedCoordinates = field.convertCoordinates(coordinates);
+            field.placeShip(convertedCoordinates);
+//            field.placeShip(coordinates, ship);
             field.drawField();
         }
     }

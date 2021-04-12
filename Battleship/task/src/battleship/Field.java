@@ -26,20 +26,30 @@ public class Field {
         }
     }
 
-    public void placeShip(String[] coordinates, Ships ship) {
-        String[] startCoordinates = convertCoordinate(coordinates[0]);
-        String[] endCoordinates = convertCoordinate(coordinates[1]);
-        int startRow = convertRow(startCoordinates[0]);
-        int startCol = convertColumn(startCoordinates[1]);
-        int endRow = convertRow(endCoordinates[0]);
-        int endCol = convertColumn(endCoordinates[1]);
+    public int[] convertCoordinates(String[] coordinates) {
+        int[] convertedCoordinates = new int[4];
+        int[] start = convertCoordinate(coordinates[0]);
+        int[] end = convertCoordinate(coordinates[1]);
+        convertedCoordinates[0] = start[0];
+        convertedCoordinates[1] = start[1];
+        convertedCoordinates[2] = end[0];
+        convertedCoordinates[3] = end[1];
+
+        return convertedCoordinates;
+    }
+
+    public void placeShip(int[] coordinates) {
+        int startRow = coordinates[0];
+        int startCol = coordinates[1];
+        int endRow = coordinates[2];
+        int endCol = coordinates[3];
         fillCells(startRow, startCol, endRow, endCol);
     }
 
-    private String[] convertCoordinate(String coordinate) {
-        String[] cell = new String[2];
-        cell[0] = coordinate.substring(0, 1);
-        cell[1] = coordinate.substring(1);
+    private int[] convertCoordinate(String coordinate) {
+        int[] cell = new int[2];
+        cell[0] = convertRow(coordinate.substring(0, 1));
+        cell[1] = convertColumn(coordinate.substring(1));
         return cell;
     }
 

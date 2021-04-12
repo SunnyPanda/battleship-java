@@ -10,11 +10,20 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         for (Ships ship : Ships.values()) {
+            boolean isValid = false;
+            int[] convertedCoordinates = new int[4];
             System.out.printf("Enter the coordinates of the %s (%d cells): \n", ship.name, ship.size);
-            String[] coordinates = in.nextLine().split(" ");
-            int[] convertedCoordinates = field.convertCoordinates(coordinates);
+            while (!isValid) {
+                try {
+                    String[] coordinates = in.nextLine().split(" ");
+                    convertedCoordinates = field.convertCoordinates(coordinates);
+                    field.validateCoordinates(convertedCoordinates, ship);
+                    isValid = true;
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
             field.placeShip(convertedCoordinates);
-//            field.placeShip(coordinates, ship);
             field.drawField();
         }
     }

@@ -14,7 +14,7 @@ public class Converter {
         return convertedCoordinates;
     }
 
-    private int[] convertCoordinate(String coordinate) {
+    public int[] convertCoordinate(String coordinate) {
         int[] cell = new int[2];
         cell[0] = convertRow(coordinate.substring(0, 1));
         cell[1] = convertColumn(coordinate.substring(1));

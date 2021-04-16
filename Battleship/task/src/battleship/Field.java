@@ -74,8 +74,9 @@ public class Field {
 
     public boolean processShot(String coordinate) throws Exception {
         int[] cell = converter.convertCoordinate(coordinate);
+        char targetCell = myField[cell[0]][cell[1]];
         if (validator.isValidCoordinate(cell, myField)) {
-            boolean isHit = myField[cell[0]][cell[1]] == Cell.SHIP.getLetter();
+            boolean isHit = targetCell == Cell.SHIP.getLetter() || targetCell ==Cell.HIT.getLetter();
             char shot = isHit ? Cell.HIT.getLetter() : Cell.MISS.getLetter();
             myField[cell[0]][cell[1]] = shot;
             enemyField[cell[0]][cell[1]] = shot;

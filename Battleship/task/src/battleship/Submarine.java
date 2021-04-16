@@ -2,5 +2,7 @@ package battleship;
 
 public class Submarine extends Ship {
 
-    protected int size = 3;
+    Submarine(int size) {
+        super(size);
+    }
 }

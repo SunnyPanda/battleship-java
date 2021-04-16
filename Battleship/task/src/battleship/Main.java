@@ -56,16 +56,12 @@ public class Main {
                 field.drawField(FieldType.ENEMY);
                 if (isHit) {
                     Ship ship = field.getBrokenShip(shot);
-                    if (Ship.isShipsLeft()) {
-                        if (ship.isDestroyed()) {
-                            System.out.println("You sank a ship! Specify a new target:");
-                        } else {
-                            System.out.println("You hit a ship! Try again:");
-                        }
+                    if (ship.isDestroyed()) {
+                        Ship.reduceAmountOfShips();
+                        System.out.println(Ship.isShipsLeft() ? "You sank a ship! Specify a new target:" : "You sank the last ship. You won. Congratulations!");
                     } else {
-                        System.out.println("You sank the last ship. You won. Congratulations!");
+                        System.out.println("You hit a ship! Try again:");
                     }
-//                    System.out.println(Ship.isShipsLeft() ? ship.isDestroyed() ? "You sank a ship! Specify a new target:" : "You hit a ship! Try again:" : "You sank the last ship. You won. Congratulations!");
                 } else {
                     System.out.println("You missed. Try again:");
                 }

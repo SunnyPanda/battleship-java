@@ -50,22 +50,24 @@ public class Field {
         validator.validateCoordinates(convertedCoordinates, ship, myField);
     }
 
-    public void placeShip(int[] coordinates) {
+    public void placeShip(int[] coordinates, Ship ship) {
         int startRow = coordinates[0];
         int startCol = coordinates[1];
         int endRow = coordinates[2];
         int endCol = coordinates[3];
-        fillCells(startRow, startCol, endRow, endCol);
+        fillCells(startRow, startCol, endRow, endCol, ship);
     }
 
-    private void fillCells(int startRow, int startCol, int endRow, int endCol) {
+    private void fillCells(int startRow, int startCol, int endRow, int endCol, Ship ship) {
         if (startRow == endRow) {
             for (int col = startCol; col <= endCol; col++) {
                 myField[startRow][col] = Cell.SHIP.getLetter();
+                ship.addCell(converter.convertCoordinates(startRow, col));
             }
         } else {
             for (int row = startRow; row <= endRow; row++) {
                 myField[row][startCol] = Cell.SHIP.getLetter();
+                ship.addCell(converter.convertCoordinates(row, startCol));
             }
         }
     }
@@ -81,6 +83,18 @@ public class Field {
         }
 
         throw new Exception("Error! You entered the wrong coordinates! Try again:");
+    }
+
+    public Ship getBrokenShip(String coordinate) {
+        Ship brokenShip = new Ship();
+        for(Ship ship : Ship.ships) {
+            if (ship.cells.contains(coordinate)) {
+                ship.countHits();
+                brokenShip = ship;
+                break;
+            }
+        }
+        return brokenShip;
     }
 }
 

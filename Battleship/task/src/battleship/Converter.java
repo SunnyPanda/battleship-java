@@ -29,4 +29,17 @@ public class Converter {
     private int convertColumn(String col) {
         return Integer.parseInt(col);
     }
+
+    public String convertCoordinates(int row, int col) {
+        return convertRow(row) + convertColumn(col);
+    }
+
+    private char convertRow(int row) {
+        String rows = "ABCDEFGHIJ";
+        return rows.charAt(row);
+    }
+
+    private String convertColumn(int col) {
+        return "" + col;
+    }
 }

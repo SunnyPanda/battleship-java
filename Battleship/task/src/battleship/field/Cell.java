@@ -1,4 +1,4 @@
-package battleship;
+package battleship.field;
 
 public enum Cell {
     EMPTY('~'),

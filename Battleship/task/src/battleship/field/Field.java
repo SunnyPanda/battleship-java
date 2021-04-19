@@ -1,4 +1,9 @@
-package battleship;
+package battleship.field;
+
+import battleship.utils.Converter;
+import battleship.utils.Validator;
+import battleship.ships.Ship;
+import battleship.ships.Ships;
 
 public class Field {
 
@@ -7,7 +12,7 @@ public class Field {
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
 
-    Field() {
+    public Field() {
         myField = new char[10][11];
         for (int i = 0, k = 65; i < myField.length; i++, k++) {
             for (int j = 0; j < myField[i].length; j++) {
@@ -89,7 +94,7 @@ public class Field {
     public Ship getBrokenShip(String coordinate) {
         Ship brokenShip = new Ship();
         for(Ship ship : Ship.ships) {
-            if (ship.cells.contains(coordinate)) {
+            if (ship.getCells().contains(coordinate)) {
                 ship.countHits();
                 brokenShip = ship;
                 break;

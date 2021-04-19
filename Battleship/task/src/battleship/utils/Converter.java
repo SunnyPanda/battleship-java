@@ -1,4 +1,4 @@
-package battleship;
+package battleship.utils;
 
 public class Converter {
 

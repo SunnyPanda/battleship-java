@@ -1,4 +1,7 @@
-package battleship;
+package battleship.utils;
+
+import battleship.field.Cell;
+import battleship.ships.Ships;
 
 public class Validator {
 

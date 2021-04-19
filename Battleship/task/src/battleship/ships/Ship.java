@@ -1,17 +1,16 @@
-package battleship;
+package battleship.ships;
 
 import java.util.List;
 import java.util.ArrayList;
 
 public class Ship {
-    private static int amountOfShips = 5;
     public static List<Ship> ships = new ArrayList<>();
 
     protected int hits;
     protected int size;
     protected String cells;
 
-    Ship() {
+    public Ship() {
 
     }
 
@@ -42,15 +41,11 @@ public class Ship {
         }
     }
 
-    public static void reduceAmountOfShips() {
-        amountOfShips--;
-    }
-
-    public static boolean isShipsLeft() {
-        return amountOfShips > 0;
-    }
-
     public static void addShip(Ship ship) {
         ships.add(ship);
+    }
+
+    public String getCells() {
+        return cells;
     }
 }

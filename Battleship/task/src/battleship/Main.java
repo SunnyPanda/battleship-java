@@ -18,6 +18,7 @@ public class Main {
 
         placeShips(in, player1);
         placeShips(in, player2);
+        System.out.println("*********************************************************");
         play(in, player1, player2);
     }
 
@@ -29,7 +30,7 @@ public class Main {
 
         for (Ships ship : Ships.values()) {
             Ship newShip = Ship.createShip(ship);
-            Ship.addShip(newShip);
+            player.getField().addShip(newShip);
             boolean isValid = false;
             int[] convertedCoordinates = new int[4];
             System.out.printf("Enter the coordinates of the %s (%d cells): \n", ship.getName(), ship.getSize());
@@ -97,14 +98,14 @@ public class Main {
             if (ship.isDestroyed()) {
                 player.reduceAmountOfShips();
                 if (player.isShipsLeft()) {
-                    System.out.println("You sank a ship!");
+                    System.out.printf("You sank a ship! %s %d\n", ship.getClass().getName(), player.numberOfShips);
                     System.out.println("Press Enter and pass the move to another player");
                     in.nextLine();
                 } else {
                     System.out.println("You sank the last ship. You won. Congratulations!");
                 }
             } else {
-                System.out.println("You hit a ship!");
+                System.out.printf("You hit a ship! %s\n", ship.getClass().getName());
                 System.out.println("Press Enter and pass the move to another player");
                 in.nextLine();
             }

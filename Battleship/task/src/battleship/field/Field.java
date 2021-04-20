@@ -5,10 +5,14 @@ import battleship.utils.Validator;
 import battleship.ships.Ship;
 import battleship.ships.Ships;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Field {
 
     private final char[][] myField;
     private final char[][] enemyField;
+    private List<Ship> ships = new ArrayList<>();
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
 
@@ -81,7 +85,10 @@ public class Field {
         int[] cell = converter.convertCoordinate(coordinate);
         char targetCell = myField[cell[0]][cell[1]];
         if (validator.isValidCoordinate(cell, myField)) {
-            boolean isHit = targetCell == Cell.SHIP.getLetter() || targetCell ==Cell.HIT.getLetter();
+            if (targetCell == Cell.HIT.getLetter()) {
+                return true;
+            }
+            boolean isHit = targetCell == Cell.SHIP.getLetter();
             char shot = isHit ? Cell.HIT.getLetter() : Cell.MISS.getLetter();
             myField[cell[0]][cell[1]] = shot;
             enemyField[cell[0]][cell[1]] = shot;
@@ -93,7 +100,7 @@ public class Field {
 
     public Ship getBrokenShip(String coordinate) {
         Ship brokenShip = new Ship();
-        for(Ship ship : Ship.ships) {
+        for(Ship ship : ships) {
             if (ship.getCells().contains(coordinate)) {
                 ship.countHits();
                 brokenShip = ship;
@@ -101,6 +108,10 @@ public class Field {
             }
         }
         return brokenShip;
+    }
+
+    public void addShip(Ship ship) {
+        ships.add(ship);
     }
 }
 

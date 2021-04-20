@@ -1,11 +1,6 @@
 package battleship.ships;
 
-import java.util.List;
-import java.util.ArrayList;
-
 public class Ship {
-    public static List<Ship> ships = new ArrayList<>();
-
     protected int hits;
     protected int size;
     protected String cells;
@@ -39,10 +34,6 @@ public class Ship {
             case DESTROYER: return new Destroyer(2);
             default: return new Ship();
         }
-    }
-
-    public static void addShip(Ship ship) {
-        ships.add(ship);
     }
 
     public String getCells() {
